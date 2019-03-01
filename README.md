@@ -4,7 +4,7 @@ A small statistics tracking app built on Twitter's API
 
 ## Heroku Deployment
 
-[Checkout the app!](twitter-metrics.herokuapp.com)
+[Checkout the app!](https://twitter-metrics.herokuapp.com)
 
 ## Authors
 
