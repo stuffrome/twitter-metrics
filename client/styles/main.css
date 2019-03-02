@@ -27,6 +27,25 @@ img {
   max-width: 100%;
 }
 
+.btn-primary {
+  background: #1FB650;
+  border-color: #1FB650;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active,
+.show .dropdown-toggle.btn-secondary {
+  background-color: #1DA1F2;
+  border-color: #1DA1F2; 
+}
+
+.btn-secondary {
+  background: #4AB3F4;
+  border-color: #4AB3F4;
+}
+
 .blockquote {
   font-siz: 1.6rem;
   color: #333;
@@ -39,7 +58,7 @@ img {
 }
 
 #stage {
-  background: #1DA1F2;
+  background: #1da1f2;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
