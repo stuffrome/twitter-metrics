@@ -18,7 +18,7 @@ module.exports.start = function() {
   // Initialize app
   const app = express();
 
-  // Configure our app
+  // Configure app
   app.use(cors());
   app.use(morgan("dev"));
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,7 +34,7 @@ module.exports.start = function() {
   app.use("/api", apiRoutes);
 
   // Frontend routes
-  app.use("*", function(req, res) {
+  app.use("/*", function(req, res) {
     res.sendFile("index.html", {"root": "./client"});
   });
   
