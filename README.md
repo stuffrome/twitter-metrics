@@ -1,6 +1,6 @@
 # Twitter Metrics
  
-A small statistics tracking app built on Twitter's API
+A small statistics tracking app built on Twitter"s API
 
 ## Heroku Deployment
 
@@ -12,4 +12,4 @@ A small statistics tracking app built on Twitter's API
 * **Christopher R Preston** - [prestoncr](https://github.com/prestoncr)
 * **Sindy Wu** - [sindywu](https://github.com/sindywu)
 * **Caitlin Becker** - [caitlinbecker](https://github.com/caitlinbecker)
-* **Nicole O'Donnell** - [nicodonnell](https://github.com/nicodonnell)
+* **Nicole O"Donnell** - [nicodonnell](https://github.com/nicodonnell)
