@@ -27,6 +27,15 @@ img {
   max-width: 100%;
 }
 
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.show .dropdown-toggle.btn-primary {
+  background-color: #26a449;
+  border-color: #26a449; 
+}
+
 .btn-primary {
   background: #1FB650;
   border-color: #1FB650;
@@ -86,10 +95,11 @@ img {
 }
 
 .signup-wrapper {
-  background: url("../assets/register-background.jpg");
+  background: #1DA1F2;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: left;
   min-height: 100vh;
   position: relative;
   padding: 10px 15px 40px;
@@ -99,7 +109,9 @@ img {
   background: white;
   border-radius: 5px;
   padding: 60px;
+  padding-top: 40px;
   max-width: 620px;
+  min-width: 420px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -156,4 +168,8 @@ background: linear-gradient(to right, #C06C84, #6C5B7B, #355C7D); /* W3C, IE 10+
     display: flex;
     align-items: center;
   }
+}
+
+.logo {
+  margin-bottom: 20px;
 }

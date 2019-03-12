@@ -2,9 +2,17 @@ angular.module('appRoutes')
     .config(['$routeProvider', '$locationProvider',
       function ($routeProvider, $locationProvider) {
         $routeProvider
+          // .when('/', {
+          //   templateUrl: 'app/components/home/home.html',
+          //   controller: 'homeController'
+          // })
           .when('/', {
-            templateUrl: 'app/components/home/home.html',
-            controller: 'homeController'
+            templateUrl: 'app/components/login/login.html',
+            controller: 'loginController'
+          })
+          .when('/register', {
+            templateUrl: 'app/components/register/register.html',
+            controller: 'registerController'
           })
           .when('/dashboard', {
             templateUrl: 'app/components/dashboard/dashboard.html',
@@ -13,7 +21,6 @@ angular.module('appRoutes')
           .otherwise({redirectTo: '/'});
 
         $locationProvider.html5Mode(true);
-        $locationProvider.hashPrefix('!');
       }
     ])
     .controller('viewController', ['$route', '$routeParams', '$location',

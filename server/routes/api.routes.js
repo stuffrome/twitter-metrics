@@ -35,8 +35,9 @@ const auth = {
 // Authentication
 router.post("/register", auth.optional, authController.register);
 router.post("/login", authController.login);
+router.get("/logout", authController.logout);
 
 // Dashboard
-router.get("/dashboard", express.static("client/dashboard"));
+
 
 module.exports = router;
