@@ -2,10 +2,6 @@ angular.module('appRoutes')
     .config(['$routeProvider', '$locationProvider',
       function ($routeProvider, $locationProvider) {
         $routeProvider
-          // .when('/', {
-          //   templateUrl: 'app/components/home/home.html',
-          //   controller: 'homeController'
-          // })
           .when('/', {
             templateUrl: 'app/components/login/login.html',
             controller: 'loginController'
@@ -19,7 +15,6 @@ angular.module('appRoutes')
             controller: 'dashboardController'
           })
           .otherwise({redirectTo: '/'});
-
         $locationProvider.html5Mode(true);
       }
     ])

@@ -39,5 +39,4 @@ router.get("/logout", authController.logout);
 
 // Dashboard
 
-
 module.exports = router;
