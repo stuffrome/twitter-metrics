@@ -3,7 +3,7 @@
 
 module.exports = {
   db: {
-    uri: "mongodb://app:appacce55@dbh54.mlab.com:27547/users",
+    uri: "mongodb://twittermetrics:team3rocks@ds025469.mlab.com:25469/users",
   }, 
   port: 8080,
   secret: "thebestteamever"

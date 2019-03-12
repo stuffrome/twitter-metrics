@@ -3,9 +3,18 @@ angular.module('appRoutes')
       function ($routeProvider, $locationProvider) {
         $routeProvider
           .when('/', {
-            templateUrl: 'app/components/home/home.html'
-          });
-
+            templateUrl: 'app/components/login/login.html',
+            controller: 'loginController'
+          })
+          .when('/register', {
+            templateUrl: 'app/components/register/register.html',
+            controller: 'registerController'
+          })
+          .when('/dashboard', {
+            templateUrl: 'app/components/dashboard/dashboard.html',
+            controller: 'dashboardController'
+          })
+          .otherwise({redirectTo: '/'});
         $locationProvider.html5Mode(true);
       }
     ])

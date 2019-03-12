@@ -18,34 +18,40 @@ module.exports.start = function() {
   // Initialize app
   const app = express();
 
-  // Configure our app
+  // Configure app
   app.use(cors());
   app.use(morgan("dev"));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(session({ secret: config.secret, cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
-  app.use(express.static("client", {"root": "./"}));
+  app.use(express.static("client", {"root": "./assets"}));
 
   // Initialize passport
   app.use(passport.initialize());
+  app.use(passport.session());
 
   // Set API routes
   const apiRoutes = require("./routes/api.routes");
   app.use("/api", apiRoutes);
 
   // Frontend routes
-  app.use("*", function(req, res) {
+app.use("/dashboard", function(req, res) {
+  if (req.isAuthenticated()) {
+    res.sendFile("index.html", {"root": "./client"});
+  }
+  else {
+    res.redirect("/");
+  }
+})
+
+  app.use("/*", function(req, res) {
     res.sendFile("index.html", {"root": "./client"});
   });
-  
-  // app.use("/", express.static("client/home"));
-  // app.use("/register", express.static("client/home/register"));
 
   app.use(function(err, req, res, next) {
     if (err.name === "UnauthorizedError") {
       res.status(401);
       res.json({"message" : err.name + ": " + err.message});
-      res.redirect("/register");
     }
     res.status(err.status || 500);
 
