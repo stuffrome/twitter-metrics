@@ -401,9 +401,9 @@ th, td {
     font-weight: 400;
     line-height: 1.5;
     color: white;*/
-    background-color: rgba(0,170,255); //rgba(10,120,200)
+    background-color: #00AAFF; //rgba(10,120,200)
     background-clip: padding-box;
-    border: 3px solid rgba(0,170,255);
+    border: 3px solid #00AAFF;
     border-radius: .5rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
