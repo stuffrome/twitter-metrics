@@ -32,5 +32,16 @@
   "engines": {
     "node": "10.15.1",
     "npm": "6.4.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stuffrome/twitter-metrics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stuffrome/twitter-metrics/issues"
+  },
+  "homepage": "https://github.com/stuffrome/twitter-metrics#readme"
 }
