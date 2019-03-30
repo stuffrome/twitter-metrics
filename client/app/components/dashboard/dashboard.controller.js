@@ -70,6 +70,23 @@ angular.module('dashboard')
                 if ($scope.searchRequest.q == "") {
                     $scope.searchRequest.q = defaultSearch;
                 }
+                if($scope.searchType=="Location") {
+                    $scope.searchtopic = {
+                        "display" : "none"
+                    }
+                    $scope.searchlocation = {
+                        "display" : "block"
+                    }
+                } else if($scope.searchType=="Topic") {
+                    $scope.searchtopic = {
+                        "display" : "block"
+                    }
+                    $scope.searchlocation = {
+                        "display" : "none"
+                    }
+                } else {
+                    console.log("invalid selection")
+                }
                 twitterService.search($scope.searchRequest).then(function(res) {
                     parseTweets(res.data);
                 }, function(err) {

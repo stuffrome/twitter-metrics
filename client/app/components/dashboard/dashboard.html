@@ -49,30 +49,9 @@
   </form>
 </div>
 
-<!-- <div class="container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">User</th>
-        <th scope="col">Post Caption</th>
-        <th scope="col">Likes</th>
-        <th scope="col">Retweets</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="tweet in tweets ">
-        <td>{{ tweet.user }}<br>@{{ tweet.screen_name }}</td>
-        <td>{{ tweet.caption }}</td>
-        <td>{{ tweet.likes }}</td>
-        <td>{{ tweet.retweets }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
+<!-- Analytics by Topic -->
 
-<!-- Analytics -->
-
-<div id="analytics">
+<div id="analytics" ng-style="searchtopic">
   <div class="container-fluid">
     <div id="topTweets" class="analytics shadow-sm mb-4 bg-white">
       <div class="title">
@@ -82,12 +61,11 @@
               Recent</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" ng-class="{active: filterType == 'popular'}" href="#"
-              ng-click="filterByPopular()">Most Popular</a>
+            <a class="nav-link" ng-class="{active: filterType == 'popular'}" href="#" ng-click="filterByPopular()">Most
+              Popular</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" ng-class="{active: filterType == 'mixed'}" href="#"
-              ng-click="filterByMixed()">Mixed</a>
+            <a class="nav-link" ng-class="{active: filterType == 'mixed'}" href="#" ng-click="filterByMixed()">Mixed</a>
           </li>
         </ul>
       </div>
@@ -116,6 +94,143 @@
         </table>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Analytics by Location -->
+<div id="analytics" ng-style="searchlocation">
+  <div class="container-fluid">
+
+    <div class="left-container">
+
+      <!-- Trending Topics -->
+      <div id="trendingTopics" class="analytics shadow-sm mb-4 mr-4 bg-white">
+        <div class="title">
+          <h2>Trending Topics</h2>
+        </div>
+
+        <div id="graph">
+          <div class="trend-1">
+            <p>#trend1</p>
+          </div>
+          <div class="trend-2">
+            <p>#trend2</p>
+          </div>
+          <div class="trend-3">
+            <p>#trend3</p>
+          </div>
+        </div>
+      </div>
+      <!-- Top Users -->
+
+      <div id="mostPopularUsers" class="analytics shadow-sm mb-4 bg-white">
+
+        <div class="title">
+          <h2>Most Popular Users</h2>
+        </div>
+        <div class="chart">
+          <table id="userChart">
+            <tbody>
+              <tr>
+                <td>College Student<br>
+                  <p>@FactsOfSchool</p>
+                </td>
+                <td>6177880<br>
+                  <p>FOLLOWING</p>
+                </td>
+                <td>39558<br>
+                  <p>TWEETS</p>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  Helping Over 6 Million Students To Become Happier, +Successful & Less Stressed
+                </td>
+              </tr>
+              <tr>
+                <td class="button-td" colspan="3">
+                  <button type="button" class="btn btn-default" id="captionDropdown">
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td>College Student<br>
+                  <p>@FactsOfSchool</p>
+                </td>
+                <td>6177880<br>
+                  <p>FOLLOWING</p>
+                </td>
+                <td>39558<br>
+                  <p>TWEETS</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="button-td" colspan="3">
+                  <button type="button" class="btn btn-default" id="captionDropdown">
+                    <i class="fas fa-chevron-down"></i>
+                    <!-- replace with this icon after <i class="fas fa-chevron-up"></i> -->
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="right-container">
+      <!-- Most Popular/Most Recent Tweets -->
+      <div id="topTweets" class="analytics shadow-sm mb-4 bg-white">
+        <div class="title">
+          <ul class="nav nav-pills" id="topTweetsPills">
+            <li class="nav-item">
+              <a class="nav-link" ng-class="{active: filterType == 'recent'}" href="#" ng-click="filterByRecent()">Most
+                Recent</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ng-class="{active: filterType == 'popular'}" href="#" ng-click="filterByPopular()">Most
+                Popular</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" ng-class="{active: filterType == 'mixed'}" href="#" ng-click="filterByMixed()">Mixed</a>
+            </li>
+          </ul>
+        </div>
+        <div class="chart">
+          <table class="tweetChart">
+            <thead>
+              <tr>
+                <th class="centerCol">Username</th>
+                <th>Post Caption</th>
+                <th class="centerCol">Likes</th>
+                <th class="centerCol">Retweets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="tweet in tweets">
+                <td class="centerCol">
+                  {{ tweet.user }}
+                  <br>
+                  <a ng-href="https://twitter.com/{{ tweet.screen_name }}">@{{ tweet.screen_name }}</a>
+                </td>
+                <td>{{ tweet.caption }}</td>
+                <td class="centerCol">{{ tweet.likes }}</td>
+                <td class="centerCol">{{ tweet.retweets }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
   </div>
 </div>
 
