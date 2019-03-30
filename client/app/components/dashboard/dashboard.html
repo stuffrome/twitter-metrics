@@ -1,191 +1,139 @@
 <nav class="navbar navbar-expand-sm navbar-light">
-    <div class="container">
-      <a class="navbar-brand" href="/dashboard">
-        <img src="./../../../assets/img/logo-small-line.png" alt="Twitter Metrics">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/dashboard">
+      <img src="./../../../assets/img/logo-small-line-white-overlap.png" alt="Twitter Metrics">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-        <ul class="nav navbar-nav navbar-right">
-          <!--<li class="nav-item">
-            <a class="nav-link" href="/dashboard">Dashboard</i></a>
-          </li>-->
-          <li>
-            <button class="btn" style="color: #4A90E2; border: 1px solid #4A90E2;" ng-click="logout()">logout</button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <button class="btn btn-secondary" ng-click="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Filters -->
+
+
+<div class="container-fluid" id="filters">
+  <p>{{ searchMessage }}</p>
+  <form>
+    <div class="input-group mb-3 searchBar">
+      <div class="input-group-prepend">
+        <button class="btn btn-light dropdown-toggle" id="leftSearchBtn" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">{{ searchType }}</button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" ng-class="{active: searchType == 'Topic'}" href="#"
+            ng-click="searchByTopic()">Topic</a>
+          <a class="dropdown-item" ng-class="{active: searchType == 'Location'}" href="#"
+            ng-click="searchByLocation()">Location</a>
+          <!-- <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Others</a> -->
+        </div>
+      </div>
+      <input type="text" class="form-control" placeholder="University of Florida"
+        aria-label="Text input with dropdown button" ng-model="searchRequest.q">
+      <div class="input-group-append">
+        <button class="btn btn-light" id="rightSearchBtn" type="submit" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" ng-click="search()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- <div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">Post Caption</th>
+        <th scope="col">Likes</th>
+        <th scope="col">Retweets</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="tweet in tweets ">
+        <td>{{ tweet.user }}<br>@{{ tweet.screen_name }}</td>
+        <td>{{ tweet.caption }}</td>
+        <td>{{ tweet.likes }}</td>
+        <td>{{ tweet.retweets }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<!-- Analytics -->
+
+<div id="analytics">
+  <div class="container-fluid">
+    <div id="topTweets" class="analytics shadow-sm mb-4 bg-white">
+      <div class="title">
+        <ul class="nav nav-pills" id="topTweetsPills">
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: filterType == 'recent'}" href="#" ng-click="filterByRecent()">Most
+              Recent</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: filterType == 'popular'}" href="#"
+              ng-click="filterByPopular()">Most Popular</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: filterType == 'mixed'}" href="#"
+              ng-click="filterByMixed()">Mixed</a>
           </li>
         </ul>
       </div>
-    </div>
-  </nav>
-
-  <!-- Dynamic View -->
-
-  <!--  <div id="stage">
-      <div id="stage-caption">
-        <h1 class="display-3">{{greeting}}</h1>
-      </div>
-    </div>-->
-
-  <!-- Filters -->
-  <div id="filters">
-    <div class = "container">
-      <p>Find Twitter data on tweets and users on any topic in any location.</p>
-      <div class="searchBar">
-      	<div class="dropdown">
-      		<!--<select class="form-control" id="searchCategory">
-      			<option value="topic" selected>Topic</option>
-      			<option value="location">Location</option>	
-    		</select>-->
-      		<button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Topic
-      			<i class="fas fa-chevron-down"></i>
-  			</button>
-  			<div class="dropdown-menu"  aria-labelledby="dropdownMenu2">
-    			<button class="dropdown-item active" type="button">Topic</button>
-    			<button class="dropdown-item" type="button">Location</button>
-  			</div>
-		</div>
-        <div id="topic" class="form-group search">
-           <!--<label for="topic">Topic</label> -->
-           <input type="text" class="form-control" id="topicInput" placeholder= "Any topic">
-        </div>
-        <div id="location" class="form-group search" style="display:none">
-          <!--<label for="location">Location</label> -->
-          <input type="text" class="form-control" id="locationInput"  placeholder= "Any place">
-      </div>
-      <!--<button type="submit" class="btn btn-primary">Submit</button>-->
-      </div>
-    </div>
-  </div>
-
-<hr>
-  <!-- Analytics -->
-  <div id="analytics">
-    <div class="container">
-
-    <div class="left-container">
-
-  <!-- Trending Topics -->
-      <div id="trendingTopics" class="analytics shadow-sm mb-4 mr-4 bg-white">
-        <div class="title">
-          <h2>Trending Topics</h2>
-        </div>
-          
-        <div id="graph">
-        	<div class="trend-1"><p>#trend1</p></div>
-        	<div class="trend-2"><p>#trend2</p></div>
-        	<div class="trend-3"><p>#trend3</p></div>
-        </div>
-      </div>
-      <!-- Top Users -->
- 
-      <div id="mostPopularUsers" class="analytics shadow-sm mb-4 bg-white">
-
-        <div class="title">
-          <h2>Most Popular Users</h2>
-        </div>
-        <div  class="chart">
-        	<table id="userChart">
-        		<tbody>
-          			<tr>
-          				<td>College Student<br><p>@FactsOfSchool</p></td>
-          				<td>6177880<br><p>FOLLOWING</p></td>
-          				<td>39558<br><p>TWEETS</p></td>
-          			</tr>
-          			<tr >
-          				<td colspan="3">
-          				Helping Over 6 Million Students To Become Happier, +Successful & Less Stressed
-          				</td>
-          			</tr>
-          			<tr>
-          				<td class="button-td" colspan="3">
-          					<button type="button" class="btn btn-default" id="captionDropdown">
-  								<i class="fas fa-chevron-up"></i>
-							</button>
-						</td>
-          			</tr>
-          		</tbody>
-          		<tbody>
-          			<tr>
-          				<td>College Student<br><p>@FactsOfSchool</p></td>
-          				<td>6177880<br><p>FOLLOWING</p></td>
-          				<td>39558<br><p>TWEETS</p></td>
-          			</tr>
-          			<tr>
-          				<td class="button-td" colspan="3">
-          					<button type="button" class="btn btn-default" id="captionDropdown">
-  								<i class="fas fa-chevron-down"></i><!-- replace with this icon after <i class="fas fa-chevron-up"></i> -->
-							</button>
-						</td>
-          			</tr>
-          		</tbody>
-          	</table>
-        </div>
-      </div>
-
-      </div>
-
-       <div class="right-container">
- <!-- Most Popular/Most Recent Tweets -->
-      <div id="topTweets" class="analytics shadow-sm mb-4 bg-white">
-      	<div class="tabs-container title">
-        	<div id="popular" class="tabs">
-          		<button class="tablinks" id="popularTab"><h2 class="tabTitle">Most Popular Topics</h2></button>
-          	</div>
-          	<div id="recent" class="tabs">
-          		<button class="tablinks" id="recentTab"><h2 class="tabTitle" style="color: dimgray">Most Recent Topics</h2></button>
-          	</div>
-        </div>
-        
-        <div class="chart">
-          <table id="tweetChart" class="p-3 ">
+      <div class="chart">
+        <table class="tweetChart">
+          <thead>
             <tr>
               <th class="centerCol">Username</th>
               <th>Post Caption</th>
               <th class="centerCol">Likes</th>
               <th class="centerCol">Retweets</th>
             </tr>
-            <tr>
-            	<td class="centerCol">College Student<br><p>@FactsOfSchool</p></td>
-            	<td>Helping Over 6 Million Students To Become Happier, +Successful & Less Stressed</td>
-            	<td class="centerCol">3779</td>
-            	<td class="centerCol">2136</td>
+          </thead>
+          <tbody>
+            <tr ng-repeat="tweet in tweets">
+              <td class="centerCol">
+                {{ tweet.user }}
+                <br>
+                <a ng-href="https://twitter.com/{{ tweet.screen_name }}">@{{ tweet.screen_name }}</a>
+              </td>
+              <td>{{ tweet.caption }}</td>
+              <td class="centerCol">{{ tweet.likes }}</td>
+              <td class="centerCol">{{ tweet.retweets }}</td>
             </tr>
-            <tr>
-            	<td class="centerCol">College Student<br><p>@FactsOfSchool</p></td>
-            	<td>Helping Over 6 Million Students To Become Happier, +Successful & Less Stressed</td>
-            	<td class="centerCol">3779</td>
-            	<td class="centerCol">2136</td>
-            </tr>
-          </table>
-        </div>
+          </tbody>
+        </table>
       </div>
-
-
-  
     </div>
-
-  
-    </div>
+  </div>
 </div>
 
 
-  <!-- Footer -->
+<!-- Footer -->
 
-  <footer id="main-footer">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-12 text-center">
-                  &copy; 2019 Just kidding we have no copywrites. <br><br>
-                  Coded by <br>
-                  <a href="https://github.com/stuffrome/">Gabriel Perez</a> <br>
-                  <a href="https://github.com/prestoncr/">Christopher Preston</a> <br>
-                  <a href="https://github.com/sindywu/">Sindy Wu</a> <br>
-                  <a href="https://github.com/caitlinbecker/">Caitlin Becker</a> <br>
-                  <a href="https://github.com/nicodonnell/">Nicole O'Donnell</a> <br>
-              </div>
-          </div>
+<footer id="main-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        &copy; 2019 Just kidding we have no copywrites. <br><br>
+        Coded by <br>
+        <a href="https://github.com/stuffrome/">Gabriel Perez</a> <br>
+        <a href="https://github.com/prestoncr/">Christopher Preston</a> <br>
+        <a href="https://github.com/sindywu/">Sindy Wu</a> <br>
+        <a href="https://github.com/caitlinbecker/">Caitlin Becker</a> <br>
+        <a href="https://github.com/nicodonnell/">Nicole O'Donnell</a> <br>
       </div>
-  </footer>
+    </div>
+  </div>
+</footer>

@@ -35,14 +35,14 @@ module.exports.start = function() {
   app.use("/api", apiRoutes);
 
   // Frontend routes
-app.use("/dashboard", function(req, res) {
-  if (req.isAuthenticated()) {
-    res.sendFile("index.html", {"root": "./client"});
-  }
-  else {
-    res.redirect("/");
-  }
-})
+  // app.use("/dashboard", function(req, res) {
+  //   if (req.isAuthenticated()) {
+  //     res.sendFile("index.html", {"root": "./client"});
+  //   }
+  //   else {
+  //     res.redirect("/");
+  //   }
+  // })
 
   app.use("/*", function(req, res) {
     res.sendFile("index.html", {"root": "./client"});

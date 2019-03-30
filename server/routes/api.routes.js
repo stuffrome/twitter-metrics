@@ -4,7 +4,7 @@ const express = require("express"),
 
 const config = require("../configs/config"),
       authController = require("../controllers/auth.controller"),
-      dashboardController = require("../controllers/dashboard.controller");
+      twitterController = require("../controllers/twitter.controller");
 
 // JWT Verificaiton
 
@@ -36,6 +36,9 @@ const auth = {
 router.post("/register", auth.optional, authController.register);
 router.post("/login", authController.login);
 router.get("/logout", authController.logout);
+
+// Twitter API
+router.post("/search", twitterController.searchTweets);
 
 // Dashboard
 
