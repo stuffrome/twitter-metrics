@@ -11,18 +11,21 @@
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="./assets/css/main.css">
 
   <!-- JS -->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-route.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
       crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
       crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular-route.min.js"></script>
 
   <!-- Angular -->
 
@@ -30,6 +33,7 @@
   <script src="./app/app.routes.js"></script>
   <script src="./app/shared/authentication/auth.service.js"></script>
   <script src="./app/shared/twitter/twitter.service.js"></script>
+  <script src="./app/shared/geolocation/geolocation.service.js"></script>
 
   <script src="./app/components/home/home.controller.js"></script>
   <script src="./app/components/dashboard/dashboard.controller.js"></script>
@@ -41,65 +45,43 @@
       '" />'));
   </script>
 
+<script>
+    $( function() {
+      var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp",
+        "BASIC",
+        "C",
+        "C++",
+        "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+      ];
+      $( "#tags" ).autocomplete({
+        source: availableTags
+      });
+    } );
+</script>
+
 </head>
 
 <body ng-app="twitterMetrics">
 
-  <!-- Navigation Bar -->
 
-  <!-- <nav class="navbar navbar-expand-sm navbar-light">
-    <div class="container">
-      <a class="navbar-brand" href="/">Twitter Metrics</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home</i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard">Dashboard</i></a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-primary" href="/register">Sign Up</i></a>
-          </li>
-          <li class="nav-item">
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Login
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <form class="px-3 py-3">
-                  <div class="form-group">
-                    <label for="loginEmail">Email address</label>
-                    <input type="email" class="form-control" id="loginEmail" placeholder="Username">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleDropdownFormPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                    <label class="form-check-label" for="dropdownCheck">
-                      Remember me
-                    </label>
-                  </div>
-                  <button type="submit" class="btn btn-secondary">Login</button>
-                </form>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">New around here? Sign up</a>
-                <a class="dropdown-item" href="#">Forgot password?</a>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav> -->
 
   <!-- Dynamic View -->
 
@@ -108,25 +90,6 @@
     <div ng-view></div>
 
   </div>
-
-
-  <!-- Footer -->
-
-  <!-- <footer id="main-footer">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-12 text-center">
-                  &copy; 2019 Just kidding we have no copywrites. <br><br>
-                  Coded by <br>
-                  <a href="https://github.com/stuffrome/">Gabriel Perez</a> <br>
-                  <a href="https://github.com/prestoncr/">Christopher Preston</a> <br>
-                  <a href="https://github.com/sindywu/">Sindy Wu</a> <br>
-                  <a href="https://github.com/caitlinbecker/">Caitlin Becker</a> <br>
-                  <a href="https://github.com/nicodonnell/">Nicole O'Donnell</a> <br>
-              </div>
-          </div>
-      </div>
-  </footer> -->
 
 </body>
 

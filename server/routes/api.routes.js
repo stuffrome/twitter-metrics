@@ -4,7 +4,8 @@ const express = require("express"),
 
 const config = require("../configs/config"),
       authController = require("../controllers/auth.controller"),
-      twitterController = require("../controllers/twitter.controller");
+      twitterController = require("../controllers/twitter.controller"),
+      locationController = require("../controllers/location.controller");
 
 // JWT Verificaiton
 
@@ -38,7 +39,12 @@ router.post("/login", authController.login);
 router.get("/logout", authController.logout);
 
 // Twitter API
-router.post("/search", twitterController.searchTweets);
+router.post("/searchtweets", twitterController.searchTweets);
+router.post("/searchtrends", twitterController.trendsPlace);
+
+// Geolocation
+router.get("/geolocation", locationController.getAll);
+router.post("/geolocation",locationController.matchWith)
 
 // Dashboard
 

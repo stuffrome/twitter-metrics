@@ -24,7 +24,7 @@
 <div class="container-fluid" id="filters">
   <p>{{ searchMessage }}</p>
   <form>
-    <div class="input-group mb-3 searchBar">
+    <div class="input-group mb-3 searchBar ui-widget">
       <div class="input-group-prepend">
         <button class="btn btn-light dropdown-toggle" id="leftSearchBtn" type="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">{{ searchType }}</button>
@@ -37,8 +37,10 @@
             <a class="dropdown-item" href="#">Others</a> -->
         </div>
       </div>
-      <input type="text" class="form-control" placeholder="University of Florida"
-        aria-label="Text input with dropdown button" ng-model="searchRequest.q">
+
+      <input type="text" class="form-control" placeholder="Search"
+        aria-label="search-input" ng-model="searchValue" ng-change="filterLocations()" tm-autocomplete>
+
       <div class="input-group-append">
         <button class="btn btn-light" id="rightSearchBtn" type="submit" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false" ng-click="search()">
@@ -47,75 +49,103 @@
       </div>
     </div>
   </form>
+  <p tm-autocomplete></p>
 </div>
-
-<!-- <div class="container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">User</th>
-        <th scope="col">Post Caption</th>
-        <th scope="col">Likes</th>
-        <th scope="col">Retweets</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="tweet in tweets ">
-        <td>{{ tweet.user }}<br>@{{ tweet.screen_name }}</td>
-        <td>{{ tweet.caption }}</td>
-        <td>{{ tweet.likes }}</td>
-        <td>{{ tweet.retweets }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
 
 <!-- Analytics -->
 
-<div id="analytics">
+<div class="analytics">
   <div class="container-fluid">
-    <div id="topTweets" class="analytics shadow-sm mb-4 bg-white">
-      <div class="title">
-        <ul class="nav nav-pills" id="topTweetsPills">
+
+    <!-- Topics Display Start -->
+
+    <div class="informationBlock shadow-sm mb-4 bg-white"
+      ng-style="{ 'display' : (searchType == 'Topic') ? 'block' : 'none'}">
+
+      <div class="informationBlockTitle">
+        <h2>Tweets about "{{ currentSearch }}"</h2>
+      </div>
+
+      <div class="bottom-line-border">
+        <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" ng-class="{active: filterType == 'recent'}" href="#" ng-click="filterByRecent()">Most
+            <a class="nav-link" ng-class="{active: tweetFilter == 'popular'}" href="#"
+              ng-click="filterTweetsPopular()">Most
+              Popular</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: tweetFilter == 'recent'}" href="#"
+              ng-click="filterTweetsRecent()">Most
               Recent</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" ng-class="{active: filterType == 'popular'}" href="#"
-              ng-click="filterByPopular()">Most Popular</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ng-class="{active: filterType == 'mixed'}" href="#"
-              ng-click="filterByMixed()">Mixed</a>
+            <a class="nav-link" ng-class="{active: tweetFilter == 'mixed'}" href="#"
+              ng-click="filterTweetsMixed()">Mixed</a>
           </li>
         </ul>
       </div>
-      <div class="chart">
-        <table class="tweetChart">
-          <thead>
-            <tr>
-              <th class="centerCol">Username</th>
-              <th>Post Caption</th>
-              <th class="centerCol">Likes</th>
-              <th class="centerCol">Retweets</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="tweet in tweets">
-              <td class="centerCol">
-                {{ tweet.user }}
-                <br>
-                <a ng-href="https://twitter.com/{{ tweet.screen_name }}">@{{ tweet.screen_name }}</a>
-              </td>
-              <td>{{ tweet.caption }}</td>
-              <td class="centerCol">{{ tweet.likes }}</td>
-              <td class="centerCol">{{ tweet.retweets }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+      <table id="tweets-table">
+        <thead>
+          <tr class="bottom-line-border">
+            <th class="text-center">Username</th>
+            <th>Post Caption</th>
+            <th class="text-center">Likes</th>
+            <th class="text-center">Retweets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bottom-line-border" ng-repeat="tweet in tweets">
+            <td class="text-center">
+              {{ tweet.user }}
+              <br>
+              <a ng-href="https://twitter.com/{{ tweet.screen_name }}" target="_blank">@{{ tweet.screen_name }}</a>
+            </td>
+            <td>{{ tweet.caption }}</td>
+            <td class="text-center">{{ tweet.likes }}</td>
+            <td class="text-center">{{ tweet.retweets }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <!-- Topics Display End -->
+
+    <!-- Locations Display Start -->
+
+    <div class="informationBlock shadow-sm mb-4 mr-4 bg-white"
+      ng-style="{'display' : (searchType == 'Location') ? 'block' : 'none'}">
+
+      <div class="informationBlockTitle">
+        <h2>Current trends @ {{ currentSearch }}</h2>
+      </div>
+
+      <div class="bottom-line-border">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: trendFilter == 'most'}" href="#" ng-click="filterTrendsMost()">Most
+              Popular</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: trendFilter == 'least'}" href="#"
+              ng-click="filterTrendsLeast()">Least Popular</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="graphContainer">
+        <div id="graph">
+          <div class="trend" ng-repeat="trend in trends" ng-click="switchTopic(trend.name)"
+            style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
+            <p>{{ trend.name }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Locations Display End -->
+
   </div>
 </div>
 
