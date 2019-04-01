@@ -63,24 +63,24 @@ module.exports.trendsPlace = function(req, res) {
     });
 };
 
-// var test = function(req) {
-//     twitter.get("trends/available", {
-//     }, function(err, data, res) {
-//         if (err) {
-//             console.log(err)
-//             return;
-//         }
+var test = function(req) {
+    twitter.get("trends/available", {
+    }, function(err, data, res) {
+        if (err) {
+            console.log(err)
+            return;
+        }
 
-//         console.log(data.length);
-//         return;
-//     });
-// }
+        console.log(data.length);
+        return;
+    });
+}
 
-// var findPlace = function(place) {
-//     return cities.filter(function(city) {
-//         return city.name.match(place)
-//     })
-// }
+var findPlace = function(place) {
+    return cities.filter(function(city) {
+        return city.name.match(place)
+    })
+}
 
 // var req = {
 //     body: {

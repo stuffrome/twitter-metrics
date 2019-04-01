@@ -4,12 +4,21 @@ angular.module('register')
             $scope.message = "Create an account! It's easy and free!";
 
             $scope.register = function() {
-                authService.register($scope.newUser).then(function(res) {
-                    $scope.message = "Success!";
-                    $location.path("/login");
-                }, function(err) {
-                    console.log("Could not register user!");
-                })
+                if ($scope.newUser.password != $scope.newUser.confirmPassword) {
+                    $scope.passwordMismatch = true;
+                }
+                else {
+                    $scope.passwordMismatch = false;
+
+                    $scope.message = "Registering your new account...";
+
+                    authService.register($scope.newUser).then(function(res) {
+                        $scope.message = "Done!";
+                        $location.path("/login");
+                    }, function(err) {
+                        console.log("Could not register user!");
+                    })
+                }
             }
         }
     ]);
