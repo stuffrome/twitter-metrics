@@ -122,6 +122,48 @@
 
     <!-- Topics Display End -->
 
+    <!-- Top Users Start -->
+
+    <div class="informationBlock shadow mb-4 bg-white"
+      ng-style="{ 'display' : (searchType == 'Location') ? 'block' : 'none'}">
+
+      <div class="informationBlockTitle">
+        <h2>Most Popular Users</h2>
+      </div>
+      <div class="chart">
+        <table id="userChart">
+          <tbody ng-repeat="user in users">
+            <tr>
+              <td>{{ user.name }}<br>
+                <p>@{{ user.screen_name }}</p>
+              </td>
+              <td>{{ user.followers_count }}<br>
+                <p>FOLLOWING</p>
+              </td>
+              <td>{{ user.statuses_count }}<br>
+                <p>TWEETS</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                {{ user.description }}
+              </td>
+            </tr>
+            <tr class="bottom-line-border">
+              <td class="button-td" colspan="3">
+                <button type="button" class="btn btn-default" id="captionDropdown">
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Top Users End -->
+
+
     <!-- Locations Display Start -->
 
     <div class="informationBlock shadow mb-4 mr-4 bg-white"

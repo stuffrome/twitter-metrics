@@ -24,6 +24,25 @@ module.exports.searchTweets = function(req, res) {
     });
 };
 
+module.exports.searchUsers = function(req, res) {
+    console.log(req)
+    twitter.get("users/search", {
+        q: req.body.name,
+        //count: req.body.count,
+    }, function(err, data) {
+        if (err) {
+            console.log(err);
+            res.status(400);
+            res.json(err);
+            return;
+        }
+
+        res.status(200).json(data);
+        console.log(res);
+        return;
+    });
+};
+
 module.exports.trendsPlace = function(req, res) {
 
     const locName = req.body.name;

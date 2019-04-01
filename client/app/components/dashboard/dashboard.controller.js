@@ -95,6 +95,25 @@ angular.module('dashboard')
                 }
             }
 
+            var parseUsers = function(data) {
+
+                console.log(data)
+                var usersData = data;
+
+                $scope.users = [];
+
+                for (var i = 0; i < usersData.length; ++i)
+                {
+                    $scope.users[i] = {
+                        name: usersData[i].name,
+                        screen_name: usersData[i].screen_name,
+                        description: usersData[i].description,
+                        followers_count: usersData[i].followers_count,
+                        statuses_count: usersData[i].statuses_count
+                    }
+                }
+            }
+
             var parseTrends = function(data) {
                 var trendsData = data[0].trends;
 
@@ -169,6 +188,20 @@ angular.module('dashboard')
 
                         $scope.currentSearch = $scope.searchValue;
                         $scope.trends = [];
+                    })
+
+                    twitterService.searchUsers(request).then(function(res) {
+
+                        $scope.status = "Search finished with " + res.data.length + " results.";
+
+                        parseUsers(res.data);
+                        $scope.currentSearch = $scope.searchValue;
+                    }, function(err) {
+
+                        $scope.status = "Search failed.";
+
+                        $scope.currentSearch = $scope.searchValue;
+                        $scope.users = [];
                     })
                 }
 
