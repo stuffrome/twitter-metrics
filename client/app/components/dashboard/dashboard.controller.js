@@ -17,7 +17,7 @@ angular.module('dashboard')
 
             // Search Bar
 
-            $scope.searchMessage = "Find Twitter data on tweets and users on any topic in any location.";
+            $scope.searchMessage = "Search for tweets on a specific topic or the latest trends around the world.";
 
             $scope.searchValue = "";
 

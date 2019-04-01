@@ -203,7 +203,7 @@ img {
 
 #tweets-table {
   width: 100%;
-  color: gray;
+  color: #5D6063;
 }
 
 /* #tweets-table thead {
@@ -211,7 +211,7 @@ img {
 } */
 
 #tweets-table tbody {
-  height: 600px;
+  max-height: 600px;
   overflow: auto;
   width: 100%;
 }
@@ -252,8 +252,8 @@ img {
   width: 10%;
 }
 
-#post-caption {
-
+#error-message {
+  width: 100%;
 }
 
 #userChart tbody {
@@ -282,7 +282,7 @@ img {
 
 .graphContainer {
   padding: 1rem;
-  height: 650px;
+  max-height: 650px;
   overflow: auto;
 }
 
