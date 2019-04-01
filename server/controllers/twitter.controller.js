@@ -28,13 +28,18 @@ module.exports.trendsPlace = function(req, res) {
     const locName = req.body.name;
     var woe_id = 0;
 
-    Location.findOne({"name" : locName}, function(err, data) {
+    Location.findOne({"name" : new RegExp('^'+ locName + '$', "i")}, function(err, data) {
         if (err) {
             console.log(err);
-            return
+            res.status(400);
+            res.json(err);
+            return;
         }
 
         if (data == null) {
+            console.log("No results found.");
+            res.status(400);
+            res.json({ error: "No results found."});
             return;
         }
 

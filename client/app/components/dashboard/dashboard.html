@@ -49,7 +49,9 @@
       </div>
     </div>
   </form>
-  <p tm-autocomplete></p>
+  <!-- <p>{{status}}</p>
+  <p>Search Value: {{searchValue}}</p>
+  <p>Current Search: {{currentSearch}}</p> -->
 </div>
 
 <!-- Analytics -->
@@ -101,7 +103,9 @@
               <br>
               <a ng-href="https://twitter.com/{{ tweet.screen_name }}" target="_blank">@{{ tweet.screen_name }}</a>
             </td>
-            <td>{{ tweet.caption }}</td>
+            <td>
+              <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.caption }}</a>
+            </td>
             <td class="text-center">{{ tweet.likes }}</td>
             <td class="text-center">{{ tweet.retweets }}</td>
           </tr>
