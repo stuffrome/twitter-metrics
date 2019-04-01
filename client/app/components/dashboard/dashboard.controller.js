@@ -11,8 +11,8 @@ angular.module('dashboard')
             }
         };
     })
-    .controller('dashboardController', ['$scope', 'authService', 'twitterService', 'geolocationService',
-        function($scope, authService, twitterService, geolocationService) {
+    .controller('dashboardController', ['$scope', '$location', 'authService', 'twitterService', 'geolocationService',
+        function($scope, $location, authService, twitterService, geolocationService) {
             $scope.Math = window.Math;
 
             // Search Bar
@@ -87,7 +87,8 @@ angular.module('dashboard')
                         screen_name: tweetsData[i].user.screen_name,
                         caption: tweetsData[i].text,
                         likes: tweetsData[i].favorite_count,
-                        retweets: tweetsData[i].retweet_count
+                        retweets: tweetsData[i].retweet_count,
+                        url: tweetsData[i].entities.urls.url
                     }
                 }
             }
@@ -122,6 +123,9 @@ angular.module('dashboard')
             }
 
             $scope.search = function() {
+
+                $scope.status = "Search called.";
+
                 if ($scope.searchType == "Topic") {
                     if ($scope.searchValue == "") {
                         $scope.searchValue = "University of Florida";
@@ -132,6 +136,9 @@ angular.module('dashboard')
                         count: $scope.tweetDisplayCount
                     }
                     twitterService.searchTweets(request).then(function(res) {
+
+                        $scope.status = "Search finished with " + res.data.statuses.length + " results.";
+
                         parseTweets(res.data);
                         $scope.currentSearch = $scope.searchValue;
                     }, function(err) {
@@ -149,10 +156,17 @@ angular.module('dashboard')
                     }
 
                     twitterService.searchTrends(request).then(function(res) {
+
+                        $scope.status = "Search finished with " + res.data[0].trends.length + " results.";
+
                         parseTrends(res.data);
                         $scope.currentSearch = $scope.searchValue;
                     }, function(err) {
-                        // Handle error
+
+                        $scope.status = "Search failed.";
+
+                        $scope.currentSearch = $scope.searchValue;
+                        $scope.trends = [];
                     })
                 }
 
