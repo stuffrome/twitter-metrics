@@ -1,11 +1,12 @@
-const Twitter = require("../models/twitter");
+const twitter = require("../models/twitter");
+    //   cities = require("all-the-cities");
 
 const Location = require("../models/location");
 
 // Twitter calls
 
 module.exports.searchTweets = function(req, res) {
-    Twitter.get("search/tweets", {
+    twitter.get("search/tweets", {
         q: req.body.q,
         //geocode: req.body.geocode,
         result_type: req.body.result_type,
@@ -46,7 +47,7 @@ module.exports.trendsPlace = function(req, res) {
         console.log("Valid WOEID");
         console.log(data.woe_id);
 
-        Twitter.get("trends/place", {
+        twitter.get("trends/place", {
             id: data.woe_id
         }, function(err, data) {
             if (err) {
@@ -63,23 +64,32 @@ module.exports.trendsPlace = function(req, res) {
 };
 
 // var test = function(req) {
-//     twitter.get("trends/place", {
-//         id: req.body.id
+//     twitter.get("trends/available", {
 //     }, function(err, data, res) {
 //         if (err) {
 //             console.log(err)
 //             return;
 //         }
 
-//         console.log(data);
+//         console.log(data.length);
 //         return;
 //     });
 // }
 
+// var findPlace = function(place) {
+//     return cities.filter(function(city) {
+//         return city.name.match(place)
+//     })
+// }
+
 // var req = {
 //     body: {
-//         id: 2450021
+//         id: 2362930
 //     }
 // }
 
-// test(req);
+// // var res = test(req);
+
+// var res = findPlace('Gainesville');
+
+// console.log(res);

@@ -6,6 +6,7 @@
   "author": "Gabriel Perez",
   "license": "MIT",
   "dependencies": {
+    "all-the-cities": "^2.0.1",
     "angular-chart.js": "^1.1.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",

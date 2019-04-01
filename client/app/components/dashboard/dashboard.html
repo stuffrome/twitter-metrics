@@ -109,6 +109,9 @@
             <td class="text-center">{{ tweet.likes }}</td>
             <td class="text-center">{{ tweet.retweets }}</td>
           </tr>
+          <tr ng-style="{ 'display' : (tweets.length == 0) ? 'block' : 'none'}">
+            <td colspan="4" id="error-message" class="text-center">No {{ tweetFilter }} tweets found for "{{ currentSearch }}"</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -143,6 +146,9 @@
             style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
             <p>{{ trend.name }}</p>
           </div>
+        </div>
+        <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
+          <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
         </div>
       </div>
 
