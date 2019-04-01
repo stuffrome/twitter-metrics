@@ -1,19 +1,22 @@
 <nav class="navbar navbar-expand-sm navbar-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/dashboard">
+    <a class="navbar-brand" href="#" ng-click="reset()">
       <img src="./../../../assets/img/logo-small-line-white-overlap.png" alt="Twitter Metrics">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <button class="btn btn-secondary" ng-click="logout()">Logout</button>
-        </li>
-      </ul>
+      <div class="nav navbar-nav navbar-right">
+        <div class="nav-item px-3">
+          <a href="#" id="nav-username">{{ user }}</a>
+        </div>
+        <div class="nav-item">
+          <a class="dropdown-toggle" href="#" id="user-options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-cog"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" id="user-options-dropdown">
+            <a class="dropdown-item" href="#" ng-click="logout()">Logout</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -24,9 +27,9 @@
 <div class="container-fluid" id="filters">
   <p>{{ searchMessage }}</p>
   <form>
-    <div class="input-group mb-3 searchBar ui-widget">
+    <div class="input-group shadow mb-3 searchBar ui-widget">
       <div class="input-group-prepend">
-        <button class="btn btn-light dropdown-toggle" id="leftSearchBtn" type="button" data-toggle="dropdown"
+        <button class="btn btn-primary dropdown-toggle" id="leftSearchBtn" type="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">{{ searchType }}</button>
         <div class="dropdown-menu">
           <a class="dropdown-item" ng-class="{active: searchType == 'Topic'}" href="#"
@@ -38,8 +41,8 @@
         </div>
       </div>
 
-      <input type="text" class="form-control" placeholder="Search"
-        aria-label="search-input" ng-model="searchValue" ng-change="filterLocations()" tm-autocomplete>
+      <input type="text" class="form-control" placeholder="Search" aria-label="search-input" ng-model="searchValue"
+        ng-change="filterLocations()" tm-autocomplete>
 
       <div class="input-group-append">
         <button class="btn btn-light" id="rightSearchBtn" type="submit" data-toggle="dropdown" aria-haspopup="true"
@@ -61,7 +64,7 @@
 
     <!-- Topics Display Start -->
 
-    <div class="informationBlock shadow-sm mb-4 bg-white"
+    <div class="informationBlock shadow mb-4 bg-white"
       ng-style="{ 'display' : (searchType == 'Topic') ? 'block' : 'none'}">
 
       <div class="informationBlockTitle">
@@ -110,7 +113,8 @@
             <td class="text-center">{{ tweet.retweets }}</td>
           </tr>
           <tr ng-style="{ 'display' : (tweets.length == 0) ? 'block' : 'none'}">
-            <td colspan="4" id="error-message" class="text-center">No {{ tweetFilter }} tweets found for "{{ currentSearch }}"</td>
+            <td colspan="4" id="error-message" class="text-center">No {{ tweetFilter }} tweets found for
+              "{{ currentSearch }}"</td>
           </tr>
         </tbody>
       </table>
@@ -120,7 +124,7 @@
 
     <!-- Locations Display Start -->
 
-    <div class="informationBlock shadow-sm mb-4 mr-4 bg-white"
+    <div class="informationBlock shadow mb-4 mr-4 bg-white"
       ng-style="{'display' : (searchType == 'Location') ? 'block' : 'none'}">
 
       <div class="informationBlockTitle">

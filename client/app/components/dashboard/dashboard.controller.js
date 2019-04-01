@@ -11,9 +11,11 @@ angular.module('dashboard')
             }
         };
     })
-    .controller('dashboardController', ['$scope', '$location', 'authService', 'twitterService', 'geolocationService',
-        function($scope, $location, authService, twitterService, geolocationService) {
+    .controller('dashboardController', ['$rootScope', '$scope', '$location', 'authService', 'twitterService', 'geolocationService',
+        function($rootScope, $scope, $location, authService, twitterService, geolocationService) {
             $scope.Math = window.Math;
+
+            $scope.user = $rootScope.currentUser;
 
             // Search Bar
 
@@ -225,6 +227,12 @@ angular.module('dashboard')
 
             // Other functionality
 
+            $scope.reset = function() {
+                $scope.searchType = "Topic";
+                $scope.searchValue = "";
+                $scope.search();
+            }
+
             $scope.logout = function() {
                 authService.logout().then(function(res) {
                     $location.path("/");
@@ -233,12 +241,9 @@ angular.module('dashboard')
                 })
             }
 
-
-
-
             /* --- Initialization --- */
 
             // Default search
-            $scope.search();
+            $scope.reset();
         }
     ]);
