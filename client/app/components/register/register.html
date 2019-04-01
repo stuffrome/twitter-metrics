@@ -10,9 +10,11 @@
                 <div class="form-group">
                     <input type="password" class="form-control" name="password" placeholder="Password" required="required" ng-model="newUser.password">
                 </div>
+                <p class="text-left red-hint"
+                    ng-style="{'display' : passwordMismatch ? 'block' : 'none'}">Passwords do not match.</p>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
-                </div>       
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required" ng-model="newUser.confirmPassword">
+                </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success btn-lg btn-block" ng-click="register()">Register Now</button>
                 </div>

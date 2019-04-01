@@ -102,13 +102,17 @@ img {
 .signup-box {
   background: white;
   border-radius: 5px;
-  padding: 60px;
-  padding-top: 40px;
+  padding: 40px 60px;
   max-width: 620px;
   min-width: 420px;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.red-hint {
+  color: red;
+  font-size: .9rem;
 }
 
 #main-footer {
@@ -171,7 +175,7 @@ img {
 
 .informationBlock {
   /* border: 1px solid #ced4da; */
-  /* border-radius: .5rem; */
+  border-radius: 5px;
   vertical-align: top;
 }
 
@@ -267,6 +271,10 @@ img {
   width: 10%;
 }
 
+#post-caption:hover {
+  text-decoration: none;
+}
+
 #error-message {
   width: 100%;
 }
@@ -346,18 +354,18 @@ img {
   background-color: #FFFFFF;
   /* background-clip: padding-box; */
   /* border: 2px solid #BDC6CC; */
-  border-radius: .5rem;
+  border-radius: 5px;
   /* transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; */
 }
 
 #leftSearchBtn {
-  border-top-left-radius: .5rem;
-  border-bottom-left-radius: .5rem;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 #rightSearchBtn {
-  border-top-right-radius: .5rem;
-  border-bottom-right-radius: .5rem;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .form-control {
