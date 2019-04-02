@@ -1,22 +1,30 @@
 angular.module('register')
     .controller('registerController', ['$scope', '$location', 'authService',
         function($scope, $location, authService) {
-            $scope.message = "Create an account! It's easy and free!";
+            const defaultMessage = "Create an account! It's easy and free!";
+            $scope.message = defaultMessage;
 
             $scope.register = function() {
+                $scope.dupEmail = false;
+
                 if ($scope.newUser.password != $scope.newUser.confirmPassword) {
                     $scope.passwordMismatch = true;
                 }
                 else {
                     $scope.passwordMismatch = false;
 
-                    $scope.message = "Registering your new account...";
+                    $scope.message = "Attempting to register your new account...";
 
                     authService.register($scope.newUser).then(function(res) {
-                        $scope.message = "Done!";
                         $location.path("/login");
                     }, function(err) {
-                        console.log("Could not register user!");
+                        if (err.data.code == 11000) {
+                            $scope.dupEmail = true;
+                            $scope.message = defaultMessage;
+                        }
+                        else {
+                            $scope.message = "Could not create account, please try again later!";
+                        }
                     })
                 }
             }
