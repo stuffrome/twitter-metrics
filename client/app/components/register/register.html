@@ -4,6 +4,8 @@
             <form>
                 <h2>Create a new account!</h2>
                 <p class="hint-text">{{message}}</p>
+                <p class="text-left red-hint"
+                    ng-style="{'display' : dupEmail ? 'block' : 'none'}">Email already in use.</p>
                 <div class="form-group">
                     <input type="email" class="form-control" name="email" placeholder="Email" required="required" ng-model="newUser.email">
                 </div>
