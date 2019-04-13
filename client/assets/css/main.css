@@ -330,6 +330,7 @@ img {
 }
 
 #graph {
+  color: #007bff;
   display: grid;
   grid-template-columns: repeat(100, 1fr);
   grid-template-rows: repeat(50, 1fr);
