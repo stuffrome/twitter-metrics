@@ -25,7 +25,6 @@ module.exports.searchTweets = function(req, res) {
 };
 
 module.exports.searchUsers = function(req, res) {
-    console.log(req)
     twitter.get("users/search", {
         q: req.body.name,
         //count: req.body.count,
@@ -37,6 +36,23 @@ module.exports.searchUsers = function(req, res) {
             return;
         }
 
+        res.status(200).json(data);
+        console.log(res);
+        return;
+    });
+};
+
+module.exports.userTweets = function(req, res) {
+    twitter.get("statuses/user_timeline", {
+        screen_name: req.body.screen_name
+        // screen_name: "twitterapi"
+    }, function(err, data) {
+        if (err) {
+            console.log(err);
+            res.status(400);
+            res.json(err);
+            return;
+        }
         res.status(200).json(data);
         console.log(res);
         return;

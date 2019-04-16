@@ -93,25 +93,47 @@ angular.module('dashboard')
                         url: tweetsData[i].entities.urls.url
                     }
                 }
+
             }
 
             var parseUsers = function(data) {
 
-                console.log(data)
+                // console.log(data)
                 var usersData = data;
 
                 $scope.users = [];
+                
+                $scope.display = "false";
 
-                for (var i = 0; i < usersData.length; ++i)
-                {
+                var tempTweets = [];
+
+                for(var i = 0; i < usersData.length; i++) {
+                    const request = {
+                        screen_name: usersData[i].screen_name
+                    }
+                    twitterService.userTweets(request).then(function(result) {
+                        tempTweets.push(result.data)
+                        //console.log(tempTweets.length)
+                    }, function(err) {
+                        console.log("failed to retrieve tweets");
+                    });
                     $scope.users[i] = {
                         name: usersData[i].name,
                         screen_name: usersData[i].screen_name,
                         description: usersData[i].description,
                         followers_count: usersData[i].followers_count,
-                        statuses_count: usersData[i].statuses_count
+                        statuses_count: usersData[i].statuses_count,
+                        display: false,
+                        tweets: []
                     }
                 }
+                setTimeout(function appendTweets() {
+                    for(var i = 0; i < tempTweets.length; i++) {
+                        $scope.users[i].tweets.push(tempTweets[i]);
+                        // console.log($scope.users[i].tweets[0]);
+                        console.log($scope.users[0].tweets[0][0] );
+                    }
+                }, 2500)
             }
 
             var parseTrends = function(data) {

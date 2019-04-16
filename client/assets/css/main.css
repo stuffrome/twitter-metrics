@@ -225,10 +225,18 @@ img {
   width: 100%;
 } */
 
+
 #tweets-table tbody {
   max-height: 600px;
   overflow: auto;
   width: 100%;
+}
+
+#user-tweets-table tbody {
+  max-height: 300px;
+  overflow: auto;
+  width: 100%;
+  display:block;
 }
 
 #tweets-table thead,

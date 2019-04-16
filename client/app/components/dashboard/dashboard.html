@@ -149,13 +149,53 @@
                 {{ user.description }}
               </td>
             </tr>
-            <tr class="bottom-line-border">
-              <td class="button-td" colspan="3">
-                <button type="button" class="btn btn-default" id="captionDropdown">
-                  <i class="fas fa-chevron-down"></i>
-                </button>
+            <div>
+              <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == false) ? '' : 'none'}">
+                <td class="button-td" colspan="3">
+                  <button type="button" class="btn btn-default" id="captionDropdown" ng-click="user.display=true">
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </td>
+              </tr>
+            </div>
+            <!-- <div ng-style="{ 'display' : (user.display == true) ? 'block' : 'none'}"> -->
+            <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == true) ? '' : 'none'}">
+              <td colspan="3">
+                <table id="tweets-table">
+                    <thead>
+                        <tr class="bottom-line-border">
+                          <th class="text-center">Date</th>
+                          <th>Post Caption</th>
+                          <th class="text-center">Likes</th>
+                          <th class="text-center">Retweets</th>
+                        </tr>
+                      </thead>
+                          <!-- <tbody> -->
+                          <tbody id="user-tweets-table" style="max-height:300px">
+                              <tr class="bottom-line-border" ng-repeat="tweet in user.tweets[0]">
+                                <td class="text-center">
+                                  {{ tweet.created_at }}
+                                </td>
+                                <td>
+                                  <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.text }}</a>
+                                </td>
+                                <td class="text-center">{{ tweet.favorite_count }}</td>
+                                <td class="text-center">{{ tweet.retweet_count }}</td>
+                              </tr>
+                            </tbody>
+                </table>
               </td>
             </tr>
+          <!-- </div> -->
+          <div>
+              <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == true) ? '' : 'none'}">
+                  <td class="button-td" colspan="3">
+                    <button type="button" class="btn btn-default" id="captionDropdown" ng-click="user.display=false">
+                      <i class="fas fa-chevron-up"></i>
+                    </button>
+                  </td>
+              </tr>
+          </div>
           </tbody>
         </table>
       </div>
