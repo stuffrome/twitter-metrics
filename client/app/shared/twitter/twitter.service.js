@@ -7,6 +7,12 @@ angular.module('twitter')
                 },
                 searchTrends: function(searchRequest) {
                     return $http.post('/api/searchtrends', searchRequest);
+                },
+                searchUsers: function(searchRequest) {
+                    return $http.post('/api/searchusers', searchRequest);
+                },
+                userTweets: function(searchRequest) {
+                    return $http.post('/api/usertweets', searchRequest);
                 }
             }
 

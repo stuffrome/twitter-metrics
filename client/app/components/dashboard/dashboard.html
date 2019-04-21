@@ -123,6 +123,88 @@
 
     <!-- Topics Display End -->
 
+    <!-- Top Users Start -->
+
+    <div class="informationBlock shadow mb-4 bg-white"
+      ng-style="{ 'display' : (searchType == 'Location') ? 'block' : 'none'}">
+
+      <div class="informationBlockTitle">
+        <h2>Most Popular Users</h2>
+      </div>
+      <div class="chart">
+        <table id="userChart">
+          <tbody ng-repeat="user in users">
+            <tr>
+              <td>{{ user.name }}<br>
+                <p>@{{ user.screen_name }}</p>
+              </td>
+              <td>{{ user.followers_count }}<br>
+                <p>FOLLOWING</p>
+              </td>
+              <td>{{ user.statuses_count }}<br>
+                <p>TWEETS</p>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                {{ user.description }}
+              </td>
+            </tr>
+            <div>
+              <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == false) ? '' : 'none'}">
+                <td class="button-td" colspan="3">
+                  <button type="button" class="btn btn-default" id="captionDropdown" ng-click="user.display=true">
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                </td>
+              </tr>
+            </div>
+            <!-- <div ng-style="{ 'display' : (user.display == true) ? 'block' : 'none'}"> -->
+            <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == true) ? '' : 'none'}">
+              <td colspan="3">
+                <table id="tweets-table">
+                    <thead>
+                        <tr class="bottom-line-border">
+                          <th class="text-center">Date</th>
+                          <th>Post Caption</th>
+                          <th class="text-center">Likes</th>
+                          <th class="text-center">Retweets</th>
+                        </tr>
+                      </thead>
+                          <!-- <tbody> -->
+                          <tbody id="user-tweets-table" style="max-height:300px">
+                              <tr class="bottom-line-border" ng-repeat="tweet in user.tweets[0]">
+                                <td class="text-center">
+                                  {{ tweet.created_at }}
+                                </td>
+                                <td>
+                                  <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.text }}</a>
+                                </td>
+                                <td class="text-center">{{ tweet.favorite_count }}</td>
+                                <td class="text-center">{{ tweet.retweet_count }}</td>
+                              </tr>
+                            </tbody>
+                </table>
+              </td>
+            </tr>
+          <!-- </div> -->
+          <div>
+              <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == true) ? '' : 'none'}">
+                  <td class="button-td" colspan="3">
+                    <button type="button" class="btn btn-default" id="captionDropdown" ng-click="user.display=false">
+                      <i class="fas fa-chevron-up"></i>
+                    </button>
+                  </td>
+              </tr>
+          </div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Top Users End -->
+
+
     <!-- Locations Display Start -->
 
     <div class="informationBlock shadow mb-4 mr-4 bg-white"

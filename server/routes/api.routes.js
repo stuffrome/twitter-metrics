@@ -41,6 +41,8 @@ router.get("/logout", authController.logout);
 // Twitter API
 router.post("/searchtweets", twitterController.searchTweets);
 router.post("/searchtrends", twitterController.trendsPlace);
+router.post("/searchusers", twitterController.searchUsers);
+router.post("/usertweets", twitterController.userTweets);
 
 // Geolocation
 router.get("/geolocation", locationController.getAll);

@@ -239,6 +239,7 @@ img {
   min-height: max-content;
 }
 
+
 #tweets-table tbody {
   max-height: 600px;
   overflow: auto;
