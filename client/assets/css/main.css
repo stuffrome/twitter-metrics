@@ -19,7 +19,10 @@ h1,h2,h3,h4,h5 {
 
 nav {
   background-color: #000000;
-  box-shadow: 0 2px 0 rgba(93, 96, 99, .1);
+  //box-shadow: 0 2px 0 rgba(93, 96, 99, .1);
+  -webkit-box-shadow: 0 8px 6px -8px #212121;
+  -moz-box-shadow: 0 8px 6px -8px #212121;
+  box-shadow: 0 8px 6px -8px #212121;
 }
 
 h2{
@@ -165,6 +168,9 @@ img {
   padding-bottom: 1.5rem;
   /* margin: 1rem; */
   /* border-bottom: 1px solid lightgray; */
+      box-shadow: 0 .1rem 1rem rgba(0,0,0,.15)!important;
+    -webkit-box-shadow: 0 .1rem 1rem  rgba(0,0,0,.15)!important; 
+    -moz-box-shadow: 0 .1rem 1rem  rgba(0,0,0,.15)!important;
 }
 
 #tooltip {
@@ -330,6 +336,7 @@ img {
 }
 
 #graph {
+  color: #007bff;
   display: grid;
   grid-template-columns: repeat(100, 1fr);
   grid-template-rows: repeat(50, 1fr);
