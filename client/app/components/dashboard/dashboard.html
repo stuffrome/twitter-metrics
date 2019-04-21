@@ -10,7 +10,7 @@
         </div>
         <div class="nav-item">
           <a href="#" id="user-options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-cog"></i>
+            <i class="fas fa-cog"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" id="user-options-dropdown">
             <a class="dropdown-item" href="#" ng-click="logout()">Logout</a>
@@ -36,6 +36,7 @@
             ng-click="searchByTopic()">Topic</a>
           <a class="dropdown-item" ng-class="{active: searchType == 'Location'}" href="#"
             ng-click="searchByLocation()">Location</a>
+          <a class="dropdown-item" ng-class="{active: searchType == 'User'}" href="#" ng-click="searchByUser()">User</a>
           <!-- <div role="separator" class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Others</a> -->
         </div>
@@ -108,7 +109,8 @@
               <a ng-href="https://twitter.com/{{ tweet.screen_name }}" target="_blank">@{{ tweet.screen_name }}</a>
             </td>
             <td>
-              <a id="post-caption" ng-href="https://twitter.com/web/status/{{ tweet.id }}" target="_blank">{{ tweet.caption }}</a>
+              <a id="post-caption" ng-href="https://twitter.com/web/status/{{ tweet.id }}"
+                target="_blank">{{ tweet.caption }}</a>
             </td>
             <td class="text-center">{{ tweet.likes }}</td>
             <td class="text-center">{{ tweet.retweets }}</td>
@@ -123,13 +125,51 @@
 
     <!-- Topics Display End -->
 
+    <!-- Locations Display Start -->
+
+    <div class="informationBlock shadow mb-4 mr-4 bg-white"
+      ng-style="{'display' : (searchType == 'Location') ? 'block' : 'none'}">
+
+      <div class="informationBlockTitle">
+        <h2>Current trends @ {{ currentSearch }}</h2>
+      </div>
+
+      <div class="bottom-line-border">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: trendFilter == 'most'}" href="#" ng-click="filterTrendsMost()">Most
+              Popular</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: trendFilter == 'least'}" href="#"
+              ng-click="filterTrendsLeast()">Least Popular</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="graphContainer">
+        <div id="graph">
+          <div class="trend" ng-repeat="trend in trends" ng-click="selectTopic(trend.name)"
+            style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
+            <p>{{ trend.name }}</p>
+          </div>
+        </div>
+        <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
+          <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Locations Display End -->
+
     <!-- Top Users Start -->
 
     <div class="informationBlock shadow mb-4 bg-white"
-      ng-style="{ 'display' : (searchType == 'Location') ? 'block' : 'none'}">
+      ng-style="{ 'display' : (searchType == 'User') ? 'block' : 'none'}">
 
-      <div class="informationBlockTitle">
-        <h2>Most Popular Users</h2>
+      <div class="informationBlockTitle bottom-line-border">
+        <h2>Users related to "{{ currentSearch }}"</h2>
       </div>
       <div class="chart">
         <table id="userChart">
@@ -159,89 +199,47 @@
                 </td>
               </tr>
             </div>
-            <!-- <div ng-style="{ 'display' : (user.display == true) ? 'block' : 'none'}"> -->
             <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == true) ? '' : 'none'}">
               <td colspan="3">
                 <table id="tweets-table">
-                    <thead>
-                        <tr class="bottom-line-border">
-                          <th class="text-center">Date</th>
-                          <th>Post Caption</th>
-                          <th class="text-center">Likes</th>
-                          <th class="text-center">Retweets</th>
-                        </tr>
-                      </thead>
-                          <!-- <tbody> -->
-                          <tbody id="user-tweets-table" style="max-height:300px">
-                              <tr class="bottom-line-border" ng-repeat="tweet in user.tweets[0]">
-                                <td class="text-center">
-                                  {{ tweet.created_at }}
-                                </td>
-                                <td>
-                                  <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.text }}</a>
-                                </td>
-                                <td class="text-center">{{ tweet.favorite_count }}</td>
-                                <td class="text-center">{{ tweet.retweet_count }}</td>
-                              </tr>
-                            </tbody>
+                  <thead>
+                    <tr class="bottom-line-border">
+                      <th class="text-center">Date</th>
+                      <th>Post Caption</th>
+                      <th class="text-center">Likes</th>
+                      <th class="text-center">Retweets</th>
+                    </tr>
+                  </thead>
+                  <tbody id="user-tweets-table" style="max-height:300px">
+                    <tr class="bottom-line-border" ng-repeat="tweet in user.tweets[0]">
+                      <td class="text-center">
+                        {{ tweet.created_at }}
+                      </td>
+                      <td>
+                        <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.text }}</a>
+                      </td>
+                      <td class="text-center">{{ tweet.favorite_count }}</td>
+                      <td class="text-center">{{ tweet.retweet_count }}</td>
+                    </tr>
+                  </tbody>
                 </table>
               </td>
             </tr>
-          <!-- </div> -->
-          <div>
+            <div>
               <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == true) ? '' : 'none'}">
-                  <td class="button-td" colspan="3">
-                    <button type="button" class="btn btn-default" id="captionDropdown" ng-click="user.display=false">
-                      <i class="fas fa-chevron-up"></i>
-                    </button>
-                  </td>
+                <td class="button-td" colspan="3">
+                  <button type="button" class="btn btn-default" id="captionDropdown" ng-click="user.display=false">
+                    <i class="fas fa-chevron-up"></i>
+                  </button>
+                </td>
               </tr>
-          </div>
+            </div>
           </tbody>
         </table>
       </div>
     </div>
-    
+
     <!-- Top Users End -->
-
-
-    <!-- Locations Display Start -->
-
-    <div class="informationBlock shadow mb-4 mr-4 bg-white"
-      ng-style="{'display' : (searchType == 'Location') ? 'block' : 'none'}">
-
-      <div class="informationBlockTitle">
-        <h2>Current trends @ {{ currentSearch }}</h2>
-      </div>
-
-      <div class="bottom-line-border">
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link" ng-class="{active: trendFilter == 'most'}" href="#" ng-click="filterTrendsMost()">Most
-              Popular</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ng-class="{active: trendFilter == 'least'}" href="#"
-              ng-click="filterTrendsLeast()">Least Popular</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="graphContainer">
-        <div id="graph">
-          <div class="trend" ng-repeat="trend in trends" ng-click="switchTopic(trend.name)"
-            style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
-            <p>{{ trend.name }}</p>
-          </div>
-        </div>
-        <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
-          <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Locations Display End -->
 
   </div>
 </div>

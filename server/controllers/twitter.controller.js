@@ -13,7 +13,7 @@ module.exports.searchTweets = function(req, res) {
         count: req.body.count,
     }, function(err, data) {
         if (err) {
-            console.log(err);
+            // console.log(err);
             res.status(400);
             res.json(err);
             return;
@@ -37,7 +37,6 @@ module.exports.searchUsers = function(req, res) {
         }
 
         res.status(200).json(data);
-        console.log(res);
         return;
     });
 };
@@ -54,7 +53,6 @@ module.exports.userTweets = function(req, res) {
             return;
         }
         res.status(200).json(data);
-        console.log(res);
         return;
     });
 };
@@ -79,9 +77,6 @@ module.exports.trendsPlace = function(req, res) {
             return;
         }
 
-        console.log("Valid WOEID");
-        console.log(data.woe_id);
-
         twitter.get("trends/place", {
             id: data.woe_id
         }, function(err, data) {
@@ -97,34 +92,3 @@ module.exports.trendsPlace = function(req, res) {
         });
     });
 };
-
-var test = function(req) {
-    twitter.get("trends/available", {
-    }, function(err, data, res) {
-        if (err) {
-            console.log(err)
-            return;
-        }
-
-        console.log(data.length);
-        return;
-    });
-}
-
-var findPlace = function(place) {
-    return cities.filter(function(city) {
-        return city.name.match(place)
-    })
-}
-
-// var req = {
-//     body: {
-//         id: 2362930
-//     }
-// }
-
-// // var res = test(req);
-
-// var res = findPlace('Gainesville');
-
-// console.log(res);
