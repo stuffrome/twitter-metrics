@@ -37,6 +37,12 @@ angular.module('dashboard')
                 $scope.search();
             }
 
+            $scope.searchByUser = function() {
+                $scope.searchType = "User";
+                $scope.searchValue = "";
+                $scope.search();
+            }
+
             // Tweets display
 
             $scope.tweetFilter = "popular";
@@ -75,6 +81,11 @@ angular.module('dashboard')
                 $scope.search();
             }
 
+            // User display
+
+            $scope.userFilter = "";
+            $scope.users = [];
+
             // Twitter API
 
             var parseTweets = function(data) {
@@ -105,13 +116,40 @@ angular.module('dashboard')
 
             }
 
-            var parseUsers = function(data) {
+            var parseTrends = function(data) {
+                var trendsData = data[0].trends;
 
-                // console.log(data)
+                $scope.trends = [];
+
+                for (var i = 0; i < trendsData.length; ++i)
+                {
+                    $scope.trends[i] = {
+                        name: trendsData[i].name,
+                        volume: trendsData[i].tweet_volume
+                    }
+                }
+
+                if ($scope.trendFilter == "most") {
+                    $scope.trends.sort(function(a, b) {
+                        return parseInt(b.volume || 0) - parseInt(a.volume || 0);
+                    });
+
+                    $scope.maxVolume = $scope.trends[0].volume;
+                }
+                else if ($scope.trendFilter == "least") {
+                    $scope.trends.sort(function(a, b) {
+                        return parseInt(a.volume || 0) - parseInt(b.volume || 0);
+                    });
+
+                    $scope.maxVolume = $scope.trends[$scope.trends.length - 1].volume;
+                }
+            }
+
+            var parseUsers = function(data) {
                 var usersData = data;
 
                 $scope.users = [];
-                
+
                 $scope.display = "false";
 
                 var tempTweets = [];
@@ -143,35 +181,6 @@ angular.module('dashboard')
                         console.log($scope.users[0].tweets[0][0] );
                     }
                 }, 2500)
-            }
-
-            var parseTrends = function(data) {
-                var trendsData = data[0].trends;
-
-                $scope.trends = [];
-
-                for (var i = 0; i < trendsData.length; ++i)
-                {
-                    $scope.trends[i] = {
-                        name: trendsData[i].name,
-                        volume: trendsData[i].tweet_volume
-                    }
-                }
-
-                if ($scope.trendFilter == "most") {
-                    $scope.trends.sort(function(a, b) {
-                        return parseInt(b.volume || 0) - parseInt(a.volume || 0);
-                    });
-
-                    $scope.maxVolume = $scope.trends[0].volume;
-                }
-                else if ($scope.trendFilter == "least") {
-                    $scope.trends.sort(function(a, b) {
-                        return parseInt(a.volume || 0) - parseInt(b.volume || 0);
-                    });
-
-                    $scope.maxVolume = $scope.trends[$scope.trends.length - 1].volume;
-                }
             }
 
             $scope.search = function() {
@@ -220,6 +229,16 @@ angular.module('dashboard')
                         $scope.currentSearch = $scope.searchValue;
                         $scope.trends = [];
                     })
+                }
+
+                if ($scope.searchType == "User") {
+                    if ($scope.searchValue == "") {
+                        $scope.searchValue = "Worldwide";
+                    }
+
+                    const request = {
+                        name: $scope.searchValue
+                    }
 
                     twitterService.searchUsers(request).then(function(res) {
 
@@ -238,7 +257,7 @@ angular.module('dashboard')
 
             }
 
-            $scope.switchTopic = function(topic) {
+            $scope.selectTopic = function(topic) {
                 $scope.searchValue = topic;
                 $scope.searchType = "Topic";
                 $scope.search();

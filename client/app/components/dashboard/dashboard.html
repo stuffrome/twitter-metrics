@@ -36,6 +36,8 @@
             ng-click="searchByTopic()">Topic</a>
           <a class="dropdown-item" ng-class="{active: searchType == 'Location'}" href="#"
             ng-click="searchByLocation()">Location</a>
+          <a class="dropdown-item" ng-class="{active: searchType == 'User'}" href="#"
+            ng-click="searchByUser()">User</a>
           <!-- <div role="separator" class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Others</a> -->
         </div>
@@ -123,10 +125,48 @@
 
     <!-- Topics Display End -->
 
+    <!-- Locations Display Start -->
+
+    <div class="informationBlock shadow mb-4 mr-4 bg-white"
+      ng-style="{'display' : (searchType == 'Location') ? 'block' : 'none'}">
+
+      <div class="informationBlockTitle">
+        <h2>Current trends @ {{ currentSearch }}</h2>
+      </div>
+
+      <div class="bottom-line-border">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: trendFilter == 'most'}" href="#" ng-click="filterTrendsMost()">Most
+              Popular</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" ng-class="{active: trendFilter == 'least'}" href="#"
+              ng-click="filterTrendsLeast()">Least Popular</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="graphContainer">
+        <div id="graph">
+          <div class="trend" ng-repeat="trend in trends" ng-click="selectTopic(trend.name)"
+            style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
+            <p>{{ trend.name }}</p>
+          </div>
+        </div>
+        <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
+          <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Locations Display End -->
+
     <!-- Top Users Start -->
 
     <div class="informationBlock shadow mb-4 bg-white"
-      ng-style="{ 'display' : (searchType == 'Location') ? 'block' : 'none'}">
+      ng-style="{ 'display' : (searchType == 'User') ? 'block' : 'none'}">
 
       <div class="informationBlockTitle">
         <h2>Most Popular Users</h2>
@@ -201,47 +241,8 @@
         </table>
       </div>
     </div>
-    
+
     <!-- Top Users End -->
-
-
-    <!-- Locations Display Start -->
-
-    <div class="informationBlock shadow mb-4 mr-4 bg-white"
-      ng-style="{'display' : (searchType == 'Location') ? 'block' : 'none'}">
-
-      <div class="informationBlockTitle">
-        <h2>Current trends @ {{ currentSearch }}</h2>
-      </div>
-
-      <div class="bottom-line-border">
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a class="nav-link" ng-class="{active: trendFilter == 'most'}" href="#" ng-click="filterTrendsMost()">Most
-              Popular</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ng-class="{active: trendFilter == 'least'}" href="#"
-              ng-click="filterTrendsLeast()">Least Popular</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="graphContainer">
-        <div id="graph">
-          <div class="trend" ng-repeat="trend in trends" ng-click="switchTopic(trend.name)"
-            style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
-            <p>{{ trend.name }}</p>
-          </div>
-        </div>
-        <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
-          <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Locations Display End -->
 
   </div>
 </div>
