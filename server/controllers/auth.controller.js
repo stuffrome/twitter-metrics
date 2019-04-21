@@ -4,21 +4,31 @@ const passport = require("passport"),
 const User = mongoose.model("User");
 
 module.exports.register = function(req, res) {
+    // User.findOne({'email' : req.body.email}, function(err, data) {
+    //     if (err) {
+    //         console.log("Error: " + err);
+    //     }
+    //     else {
+    //         res.
+    //     }
+    // })
+
     var user = new User();
 
     user.email = req.body.email;
     user.setPassword(req.body.password);
 
     user.save( function(err) {
-        const token = user.generateJWT();
-        res.status(200);
-        res.json({
-            "token": token
-        });
-
         if (err) {
-            console.log(err);
+            res.status(400).json(err);
+            return;
         }
+
+        // const token = user.generateJWT();
+        res.status(201);
+        res.json({
+            "message": "success"
+        });
     });
 };
 

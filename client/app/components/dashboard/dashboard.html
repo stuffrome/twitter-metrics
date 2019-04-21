@@ -9,7 +9,7 @@
           <a href="#" id="nav-username">{{ user }}</a>
         </div>
         <div class="nav-item">
-          <a class="dropdown-toggle" href="#" id="user-options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a href="#" id="user-options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-cog"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" id="user-options-dropdown">
@@ -51,6 +51,7 @@
         </button>
       </div>
     </div>
+    <!-- <p class="text-right" id="tooltip">Tooltip:</p> -->
   </form>
   <!-- <p>{{status}}</p>
   <p>Search Value: {{searchValue}}</p>
@@ -90,24 +91,24 @@
         </ul>
       </div>
 
-      <table id="tweets-table">
-        <thead>
-          <tr class="bottom-line-border">
+      <table id="tweets-table" class="flex-container-col">
+        <thead class="flex-container-col">
+          <tr class="bottom-line-border flex-container-row">
             <th class="text-center">Username</th>
             <th>Post Caption</th>
             <th class="text-center">Likes</th>
             <th class="text-center">Retweets</th>
           </tr>
         </thead>
-        <tbody>
-          <tr class="bottom-line-border" ng-repeat="tweet in tweets">
+        <tbody class="flex-container-col">
+          <tr class="bottom-line-border flex-container-row" ng-repeat="tweet in tweets">
             <td class="text-center">
               {{ tweet.user }}
               <br>
               <a ng-href="https://twitter.com/{{ tweet.screen_name }}" target="_blank">@{{ tweet.screen_name }}</a>
             </td>
             <td>
-              <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.caption }}</a>
+              <a id="post-caption" ng-href="https://twitter.com/web/status/{{ tweet.id }}" target="_blank">{{ tweet.caption }}</a>
             </td>
             <td class="text-center">{{ tweet.likes }}</td>
             <td class="text-center">{{ tweet.retweets }}</td>

@@ -23,7 +23,7 @@ module.exports.start = function() {
   app.use(morgan("dev"));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  app.use(session({ secret: config.secret, cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
+  app.use(session({ secret: config.secret, cookie: { maxAge: 60000000 }, resave: false, saveUninitialized: false }));
   app.use(express.static("client", {"root": "./assets"}));
 
   // Initialize passport

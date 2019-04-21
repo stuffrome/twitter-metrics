@@ -84,13 +84,22 @@ angular.module('dashboard')
 
                 for (var i = 0; i < tweetsData.length; ++i)
                 {
+                    var tweetCaption = "";
+                    const httpsSubstring = tweetsData[i].text.substring(tweetsData[i].text.length - 23, tweetsData[i].text.length - 18);
+
+                    if (httpsSubstring == 'https') {
+                        tweetCaption = tweetsData[i].text.substring(0,tweetsData[i].text.length - 23);
+                    }
+                    else {
+                        tweetCaption = tweetsData[i].text;
+                    }
                     $scope.tweets[i] = {
                         user: tweetsData[i].user.name,
                         screen_name: tweetsData[i].user.screen_name,
-                        caption: tweetsData[i].text,
+                        caption: tweetCaption,
                         likes: tweetsData[i].favorite_count,
                         retweets: tweetsData[i].retweet_count,
-                        url: tweetsData[i].entities.urls.url
+                        id: tweetsData[i].id_str
                     }
                 }
 

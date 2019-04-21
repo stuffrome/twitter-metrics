@@ -5,7 +5,7 @@
                 <div class="logo">
                     <img src="./../../../assets/img/logo-side.png" alt="Twitter Metrics">
                 </div>
-                <p class="hint-text">{{message}}</p>
+                <p class="hint-text" ng-style="{'color' : invalidLogin ? 'red' : 'inherit'}">{{message}}</p>
                 <div class="form-group">
                     <input type="email" class="form-control" name="email" placeholder="Email" required="required" ng-model="credentials.email">
                 </div>
