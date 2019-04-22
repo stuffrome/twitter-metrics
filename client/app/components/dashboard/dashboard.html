@@ -25,23 +25,23 @@
 
 
 <div class="container-fluid" id="filters">
-  <p>{{ searchMessage }}</p>
+  <!-- <p>{{ searchMessage }}</p> -->
   <form>
+    <ul id="search-nav" class="nav nav-tabs flex-container-row">
+      <li class="nav-item flex-container-col">
+          <a class="nav-link" ng-class="{active: searchType == 'Topic'}" href="#"
+          ng-click="searchByTopic()">Topic</a>
+      </li>
+      <li class="nav-item flex-container-col">
+          <a class="nav-link" ng-class="{active: searchType == 'Location'}" href="#"
+          ng-click="searchByLocation()">Location</a>
+      </li>
+      <li class="nav-item flex-container-col">
+        <a class="nav-link" ng-class="{active: searchType == 'User'}" href="#"
+            ng-click="searchByUser()">User</a>
+      </li>
+    </ul>
     <div class="input-group shadow mb-3 searchBar ui-widget">
-      <div class="input-group-prepend">
-        <button class="btn btn-primary dropdown-toggle" id="leftSearchBtn" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">{{ searchType }}</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" ng-class="{active: searchType == 'Topic'}" href="#"
-            ng-click="searchByTopic()">Topic</a>
-          <a class="dropdown-item" ng-class="{active: searchType == 'Location'}" href="#"
-            ng-click="searchByLocation()">Location</a>
-          <a class="dropdown-item" ng-class="{active: searchType == 'User'}" href="#" ng-click="searchByUser()">User</a>
-          <!-- <div role="separator" class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Others</a> -->
-        </div>
-      </div>
-
       <input type="text" class="form-control" placeholder="Search" aria-label="search-input" ng-model="searchValue"
         ng-change="filterLocations()" tm-autocomplete>
 
@@ -104,8 +104,7 @@
         <tbody class="flex-container-col">
           <tr class="bottom-line-border flex-container-row" ng-repeat="tweet in tweets">
             <td class="text-center">
-              {{ tweet.user }}
-              <br>
+              <a href="#" ng-click="selectUser(tweet.user)">{{ tweet.user }}</a>
               <a ng-href="https://twitter.com/{{ tweet.screen_name }}" target="_blank">@{{ tweet.screen_name }}</a>
             </td>
             <td>
@@ -148,16 +147,29 @@
       </div>
 
       <div class="graphContainer">
-        <div id="graph">
-          <div class="trend" ng-repeat="trend in trends" ng-click="selectTopic(trend.name)"
-            style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
-            <p>{{ trend.name }}</p>
+        <div class = "row">
+
+          <div class = "col-md-2" id = "trendnamecol">
+          <div ng-repeat="trend in trends" ng-click="switchTopic(trend.name)">
+            <p id = "trendname">{{ trend.name }}</p>
           </div>
         </div>
+        <div class = "col-md-9">
+        <div id="graph">
+          <div class="trend" ng-repeat="trend in trends" ng-click="switchTopic(trend.name)"
+            style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
+            <!-- <p>{{ trend.name }}</p> -->
+            <p>{{ trend.volume }}</p>
+          </div>
+        
+      </div>
+        
         <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
           <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
         </div>
       </div>
+    </div>
+    </div>
 
     </div>
 
@@ -179,7 +191,7 @@
                 <p>@{{ user.screen_name }}</p>
               </td>
               <td>{{ user.followers_count }}<br>
-                <p>FOLLOWING</p>
+                <p>FOLLOWERS</p>
               </td>
               <td>{{ user.statuses_count }}<br>
                 <p>TWEETS</p>
