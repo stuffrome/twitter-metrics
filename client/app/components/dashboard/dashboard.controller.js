@@ -263,6 +263,12 @@ angular.module('dashboard')
                 $scope.search();
             }
 
+            $scope.selectUser = function(user) {
+                $scope.searchValue = user;
+                $scope.searchType = "User";
+                $scope.search();
+            }
+
             // Geolocation
 
             $scope.locationList = [];
