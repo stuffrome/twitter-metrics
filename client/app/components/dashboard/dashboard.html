@@ -52,11 +52,7 @@
         </button>
       </div>
     </div>
-    <!-- <p class="text-right" id="tooltip">Tooltip:</p> -->
   </form>
-  <!-- <p>{{status}}</p>
-  <p>Search Value: {{searchValue}}</p>
-  <p>Current Search: {{currentSearch}}</p> -->
 </div>
 
 <!-- Analytics -->
@@ -161,9 +157,9 @@
             <!-- <p>{{ trend.name }}</p> -->
             <p>{{ trend.volume }}</p>
           </div>
-        
+
       </div>
-        
+
         <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
           <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
         </div>
@@ -223,15 +219,15 @@
                     </tr>
                   </thead>
                   <tbody id="user-tweets-table" style="max-height:300px">
-                    <tr class="bottom-line-border" ng-repeat="tweet in user.tweets[0]">
+                    <tr class="bottom-line-border" ng-repeat="tweet in user.tweets">
                       <td class="text-center">
                         {{ tweet.created_at }}
                       </td>
                       <td>
-                        <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.text }}</a>
+                        <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.caption }}</a>
                       </td>
-                      <td class="text-center">{{ tweet.favorite_count }}</td>
-                      <td class="text-center">{{ tweet.retweet_count }}</td>
+                      <td class="text-center">{{ tweet.likes }}</td>
+                      <td class="text-center">{{ tweet.retweets }}</td>
                     </tr>
                   </tbody>
                 </table>

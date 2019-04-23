@@ -86,6 +86,47 @@ angular.module('dashboard')
             $scope.userFilter = "";
             $scope.users = [];
 
+            var getUserTweets = function(user) {
+                var tweets = [];
+
+                $scope.status = user.screen_name;
+
+                const request = {
+                    screen_name: user.screen_name
+                }
+
+                twitterService.userTweets(request).then(function(result) {
+                    const tweetsData = result.data;
+
+                    for (var i = 0; i < tweetsData.length; ++i)
+                    {
+                        var tweetCaption = "";
+                        const httpsSubstring = tweetsData[i].text.substring(tweetsData[i].text.length - 23, tweetsData[i].text.length - 18);
+
+                        if (httpsSubstring == 'https') {
+                            tweetCaption = tweetsData[i].text.substring(0,tweetsData[i].text.length - 23);
+                        }
+                        else {
+                            tweetCaption = tweetsData[i].text;
+                        }
+
+                        tweets[i] = {
+                            created_at: tweetsData[i].created_at,
+                            caption: tweetCaption,
+                            likes: tweetsData[i].favorite_count,
+                            retweets: tweetsData[i].retweet_count,
+                            id: tweetsData[i].id_str
+                        }
+                    }
+                }, function(err) {
+                    console.log("failed to retrieve tweets for user");
+                });
+
+                // $scope.status = tweets[0];
+
+                return tweets;
+            }
+
             // Twitter API
 
             var parseTweets = function(data) {
@@ -152,18 +193,7 @@ angular.module('dashboard')
 
                 $scope.display = "false";
 
-                var tempTweets = [];
-
                 for(var i = 0; i < usersData.length; i++) {
-                    const request = {
-                        screen_name: usersData[i].screen_name
-                    }
-                    twitterService.userTweets(request).then(function(result) {
-                        tempTweets.push(result.data)
-                        //console.log(tempTweets.length)
-                    }, function(err) {
-                        console.log("failed to retrieve tweets");
-                    });
                     $scope.users[i] = {
                         name: usersData[i].name,
                         screen_name: usersData[i].screen_name,
@@ -173,14 +203,9 @@ angular.module('dashboard')
                         display: false,
                         tweets: []
                     }
+
+                    $scope.users[i].tweets = getUserTweets($scope.users[i]);
                 }
-                setTimeout(function appendTweets() {
-                    for(var i = 0; i < tempTweets.length; i++) {
-                        $scope.users[i].tweets.push(tempTweets[i]);
-                        // console.log($scope.users[i].tweets[0]);
-                        console.log($scope.users[0].tweets[0][0] );
-                    }
-                }, 2500)
             }
 
             $scope.search = function() {
