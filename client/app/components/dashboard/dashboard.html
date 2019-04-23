@@ -147,13 +147,13 @@
         <div class="row">
 
           <div class="col-md-2" id="trendnamecol">
-            <div ng-repeat="trend in trends" ng-click="switchTopic(trend.name)">
+            <div ng-repeat="trend in trends" ng-click="selectTopic(trend.name)">
               <p id="trendname">{{ trend.name }}</p>
             </div>
           </div>
           <div class="col-md-9">
             <div id="graph">
-              <div class="trend" ng-repeat="trend in trends" ng-click="switchTopic(trend.name)"
+              <div class="trend" ng-repeat="trend in trends" ng-click="selectTopic(trend.name)"
                 style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
                 <!-- <p>{{ trend.name }}</p> -->
                 <p>{{ trend.volume }}</p>
