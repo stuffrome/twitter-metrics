@@ -112,7 +112,10 @@ angular.module('dashboard')
                             tweetCaption = tweetsData[i].text;
                         }
 
+
+
                         tweetTime = tweetsData[i].created_at.substring(0, 19) + tweetsData[i].created_at.substring(25, tweetsData[i].text.length);
+                        tweetTime = tweetTime.substring(0, 11) + tweetTime.substring(20, tweetTime.length) + tweetTime.substring(10, 16);
 
                         tweets[i] = {
                             created_at: tweetTime,
@@ -120,6 +123,11 @@ angular.module('dashboard')
                             likes: tweetsData[i].favorite_count,
                             retweets: tweetsData[i].retweet_count,
                             id: tweetsData[i].id_str
+                        }
+
+                        if (tweetCaption.substring(0, 2) == "RT") {
+                            tweets[i].is_retweet = true;
+                            tweets[i].caption = tweetCaption.substring(3, tweetsData[i].text.length);
                         }
                     }
                 }, function(err) {
@@ -149,6 +157,7 @@ angular.module('dashboard')
                     else {
                         tweetCaption = tweetsData[i].text;
                     }
+
                     $scope.tweets[i] = {
                         user: tweetsData[i].user.name,
                         screen_name: tweetsData[i].user.screen_name,
@@ -156,6 +165,11 @@ angular.module('dashboard')
                         likes: tweetsData[i].favorite_count,
                         retweets: tweetsData[i].retweet_count,
                         id: tweetsData[i].id_str
+                    }
+
+                    if (tweetCaption.substring(0, 2) == "RT") {
+                        $scope.tweets[i].is_retweet = true;
+                        $scope.tweets[i].caption = tweetCaption.substring(3, tweetsData[i].text.length);
                     }
                 }
 

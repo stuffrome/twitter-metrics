@@ -99,9 +99,12 @@
           <tr class="bottom-line-border flex-container-row" ng-repeat="tweet in tweets">
             <td class="text-center">
               <a href="#" ng-click="selectUser(tweet.user)">{{ tweet.user }}</a>
-              <a ng-href="https://twitter.com/{{ tweet.screen_name }}" target="_blank">@{{ tweet.screen_name }}</a>
+              <p>
+                <a ng-href="https://twitter.com/{{ tweet.screen_name }}" target="_blank">@{{ tweet.screen_name }}</a>
+              </p>
             </td>
             <td>
+              <i class="fas fa-retweet float-left" ng-style="{ 'display' : (tweet.is_retweet == true) ? '' : 'none'}"></i>
               <a id="post-caption" ng-href="https://twitter.com/web/status/{{ tweet.id }}"
                 target="_blank">{{ tweet.caption }}</a>
             </td>
@@ -181,8 +184,12 @@
         <table id="userChart">
           <tbody ng-repeat="user in users">
             <tr>
-              <td>{{ user.name }}<br>
-                <p>@{{ user.screen_name }}</p>
+              <td>
+                <a href="#" ng-click="selectUser(user.name)">{{ user.name }}</a>
+                <br>
+                <p>
+                  <a ng-href="https://twitter.com/{{ user.screen_name }}" target="_blank">@{{ user.screen_name }}</a>
+                </p>
               </td>
               <td>{{ user.followers_count }}<br>
                 <p>FOLLOWERS</p>
@@ -222,6 +229,7 @@
                         {{ tweet.created_at }}
                       </td>
                       <td>
+                        <i class="fas fa-retweet float-left" ng-style="{ 'display' : (tweet.is_retweet == true) ? '' : 'none'}"></i>
                         <a id="post-caption" ng-href="https://twitter.com/web/status/{{ tweet.id }}"
                           target="_blank">{{ tweet.caption }}</a>
                       </td>
