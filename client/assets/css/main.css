@@ -227,7 +227,7 @@ img {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   padding-top: 1rem;
-  padding-bottom: 0px;
+  padding-bottom: 1rem;
 }
 
 #tweets-table {
@@ -285,7 +285,10 @@ img {
 #tweets-table th:nth-child(1), td:nth-child(1) {
   width: 20%;
 }
-#tweets-table th:nth-child(2), td:nth-child(2) {
+#tweets-table th:nth-child(2) {
+  width: 59%;
+}
+#tweets-table td:nth-child(2) {
   width: 60%;
 }
 #tweets-table th:nth-child(3), td:nth-child(3) {

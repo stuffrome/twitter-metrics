@@ -101,6 +101,8 @@ angular.module('dashboard')
                     for (var i = 0; i < tweetsData.length; ++i)
                     {
                         var tweetCaption = "";
+                        var tweetTime = "";
+
                         const httpsSubstring = tweetsData[i].text.substring(tweetsData[i].text.length - 23, tweetsData[i].text.length - 18);
 
                         if (httpsSubstring == 'https') {
@@ -110,8 +112,10 @@ angular.module('dashboard')
                             tweetCaption = tweetsData[i].text;
                         }
 
+                        tweetTime = tweetsData[i].created_at.substring(0, 19) + tweetsData[i].created_at.substring(25, tweetsData[i].text.length);
+
                         tweets[i] = {
-                            created_at: tweetsData[i].created_at,
+                            created_at: tweetTime,
                             caption: tweetCaption,
                             likes: tweetsData[i].favorite_count,
                             retweets: tweetsData[i].retweet_count,

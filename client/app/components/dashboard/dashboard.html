@@ -29,16 +29,14 @@
   <form>
     <ul id="search-nav" class="nav nav-tabs flex-container-row">
       <li class="nav-item flex-container-col">
-          <a class="nav-link" ng-class="{active: searchType == 'Topic'}" href="#"
-          ng-click="searchByTopic()">Topic</a>
+        <a class="nav-link" ng-class="{active: searchType == 'Topic'}" href="#" ng-click="searchByTopic()">Topic</a>
       </li>
       <li class="nav-item flex-container-col">
-          <a class="nav-link" ng-class="{active: searchType == 'Location'}" href="#"
+        <a class="nav-link" ng-class="{active: searchType == 'Location'}" href="#"
           ng-click="searchByLocation()">Location</a>
       </li>
       <li class="nav-item flex-container-col">
-        <a class="nav-link" ng-class="{active: searchType == 'User'}" href="#"
-            ng-click="searchByUser()">User</a>
+        <a class="nav-link" ng-class="{active: searchType == 'User'}" href="#" ng-click="searchByUser()">User</a>
       </li>
     </ul>
     <div class="input-group shadow mb-3 searchBar ui-widget">
@@ -143,29 +141,29 @@
       </div>
 
       <div class="graphContainer">
-        <div class = "row">
+        <div class="row">
 
-          <div class = "col-md-2" id = "trendnamecol">
-          <div ng-repeat="trend in trends" ng-click="switchTopic(trend.name)">
-            <p id = "trendname">{{ trend.name }}</p>
+          <div class="col-md-2" id="trendnamecol">
+            <div ng-repeat="trend in trends" ng-click="switchTopic(trend.name)">
+              <p id="trendname">{{ trend.name }}</p>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div id="graph">
+              <div class="trend" ng-repeat="trend in trends" ng-click="switchTopic(trend.name)"
+                style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
+                <!-- <p>{{ trend.name }}</p> -->
+                <p>{{ trend.volume }}</p>
+              </div>
+
+            </div>
+
+            <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
+              <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
+            </div>
           </div>
         </div>
-        <div class = "col-md-9">
-        <div id="graph">
-          <div class="trend" ng-repeat="trend in trends" ng-click="switchTopic(trend.name)"
-            style="grid-column-end : {{ trend.volume ? Math.round(trend.volume / maxVolume * 100) : 1 }}">
-            <!-- <p>{{ trend.name }}</p> -->
-            <p>{{ trend.volume }}</p>
-          </div>
-
       </div>
-
-        <div ng-style="{ 'display' : (trends.length == 0) ? 'block' : 'none'}">
-          <p id="error-message" class="text-center">No trends found for "{{ currentSearch }}"</p>
-        </div>
-      </div>
-    </div>
-    </div>
 
     </div>
 
@@ -207,27 +205,32 @@
                 </td>
               </tr>
             </div>
-            <tr class="bottom-line-border" ng-style="{ 'display' : (user.display == true) ? '' : 'none'}">
+            <tr ng-style="{ 'display' : (user.display == true) ? '' : 'none'}">
               <td colspan="3">
-                <table id="tweets-table">
-                  <thead>
-                    <tr class="bottom-line-border">
-                      <th class="text-center">Date</th>
+                <table id="tweets-table" class="flex-container-col border shadow">
+                  <thead class="flex-container-col">
+                    <tr class="bottom-line-border flex-container-row">
+                      <th class="text-center">Posted on</th>
                       <th>Post Caption</th>
                       <th class="text-center">Likes</th>
                       <th class="text-center">Retweets</th>
                     </tr>
                   </thead>
-                  <tbody id="user-tweets-table" style="max-height:300px">
-                    <tr class="bottom-line-border" ng-repeat="tweet in user.tweets">
+                  <tbody class="flex-container-col">
+                    <tr class="bottom-line-border flex-container-row" ng-repeat="tweet in user.tweets">
                       <td class="text-center">
                         {{ tweet.created_at }}
                       </td>
                       <td>
-                        <a id="post-caption" ng-href="{{ tweet.url }}">{{ tweet.caption }}</a>
+                        <a id="post-caption" ng-href="https://twitter.com/web/status/{{ tweet.id }}"
+                          target="_blank">{{ tweet.caption }}</a>
                       </td>
                       <td class="text-center">{{ tweet.likes }}</td>
                       <td class="text-center">{{ tweet.retweets }}</td>
+                    </tr>
+                    <tr ng-style="{ 'display' : (tweets.length == 0) ? 'block' : 'none'}">
+                      <td colspan="4" id="error-message" class="text-center">No {{ tweetFilter }} tweets found for
+                        "{{ user.name }}"</td>
                     </tr>
                   </tbody>
                 </table>
